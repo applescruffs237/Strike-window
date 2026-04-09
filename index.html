@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>G700 Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #FF6B00;
+    --mint: #3FFFC8;
+    --purple: #8B7FFF;
+    --white: #FFFFFF;
+    --off-white: #F0EEE9;
+    --dim: #555555;
+    --mid-grey: #8A8A8A;
+    --card-bg: #222222;
+    --border: #333333;
+  }
+
+  html, body {
+    background: #111111;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .screen {
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .header-left { display: flex; flex-direction: column; }
+
+  .club-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+  }
+
+  .club-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .nike-swoosh { fill: var(--orange); width: 52px; height: auto; }
+
+  .header-sub {
+    font-size: 10px;
+    color: var(--mid-grey);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 5px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-sub-left span { color: var(--orange); }
+
+  .legend-inline { display: flex; align-items: center; gap: 6px; font-size: 9px; }
+  .legend-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); flex-shrink: 0; }
+  .legend-dot.mint { background: var(--mint); }
+  .legend-dot.purple { background: var(--purple); }
+  .legend-range { color: var(--dim); }
+  .legend-target { color: var(--mint); }
+  .legend-strike { color: var(--purple); }
+
+  .clubs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 7px 13px 7px;
+  }
+
+  .club-card {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 7px 12px 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+    position: relative;
+    overflow: hidden;
+  }
+  .club-card:last-child { margin-bottom: 0; }
+
+  .club-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--orange);
+    border-radius: 10px 0 0 10px;
+  }
+
+  .club-id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 34px;
+  }
+
+  .club-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--orange);
+    line-height: 1;
+    text-align: center;
+  }
+  .club-suffix {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-top: -2px;
+  }
+
+  .divider-v {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+    margin: 2px 2px;
+    flex-shrink: 0;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px 6px;
+    flex: 1;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .metric-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .metric-band {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    line-height: 1;
+  }
+
+  .band-edge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--dim);
+    letter-spacing: 0.02em;
+  }
+
+  .band-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    color: var(--dim);
+    opacity: 0.6;
+  }
+
+  .band-target {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--mint);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-shadow: 0 0 10px rgba(63, 255, 200, 0.35);
+  }
+
+  .band-target.strike {
+    color: var(--purple);
+    text-shadow: 0 0 10px rgba(139, 127, 255, 0.4);
+  }
+
+  .club-card.pw::before { background: #FF8C42; }
+  .club-card.pw .club-number { color: #FF8C42; }
+
+  .footer {
+    padding: 7px 20px 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .legend-items { display: flex; gap: 12px; }
+
+  .legend-item { display: flex; flex-direction: column; align-items: flex-start; }
+
+  .legend-label {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+  }
+
+  .legend-desc { font-size: 9px; color: var(--off-white); letter-spacing: 0.04em; }
+
+  .card-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="header">
+    <div class="header-left">
+      <span class="club-label">Ping G700 Irons</span>
+      <span class="club-name">Strike Windows</span>
+    </div>
+    <svg class="nike-swoosh" viewBox="0 0 80 30" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 22.5C14 18 54 4 73 1c3.5-.6 6.5-.5 6.5 1.5 0 1.5-2 3-5 4.5C62 11.5 20 20 6 22.5z"/>
+    </svg>
+  </div>
+
+  <div class="header-sub">
+    <span class="header-sub-left">Foam Ball · Baby Draw · <span>Indoor</span></span>
+    <span class="legend-inline">
+      <span class="legend-dot mint"></span><span class="legend-target">Shape</span>
+      <span class="legend-dot purple"></span><span class="legend-strike">Strike</span>
+    </span>
+  </div>
+
+  <div class="clubs">
+
+    <!-- 7 Iron -->
+    <div class="club-card">
+      <div class="club-id">
+        <div class="club-number">7</div>
+        <div class="club-suffix">Iron</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-label">Club Path</span>
+          <div class="metric-band"><span class="band-edge">+1</span><span class="band-sep">·</span><span class="band-target">+2</span><span class="band-sep">·</span><span class="band-edge">+3°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Face to Tgt</span>
+          <div class="metric-band"><span class="band-edge">0</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+1.5°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Start Dir</span>
+          <div class="metric-band"><span class="band-edge">+0.5</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+2°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Attack Ang</span>
+          <div class="metric-band"><span class="band-edge">−4</span><span class="band-sep">·</span><span class="band-target strike">−5</span><span class="band-sep">·</span><span class="band-edge">−6°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Dyn Loft</span>
+          <div class="metric-band"><span class="band-edge">19</span><span class="band-sep">·</span><span class="band-target strike">20</span><span class="band-sep">·</span><span class="band-edge">22°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Launch</span>
+          <div class="metric-band"><span class="band-edge">13</span><span class="band-sep">·</span><span class="band-target strike">14</span><span class="band-sep">·</span><span class="band-edge">16°</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 Iron -->
+    <div class="club-card">
+      <div class="club-id">
+        <div class="club-number">8</div>
+        <div class="club-suffix">Iron</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-label">Club Path</span>
+          <div class="metric-band"><span class="band-edge">+1</span><span class="band-sep">·</span><span class="band-target">+2</span><span class="band-sep">·</span><span class="band-edge">+3°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Face to Tgt</span>
+          <div class="metric-band"><span class="band-edge">0</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+1.5°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Start Dir</span>
+          <div class="metric-band"><span class="band-edge">+0.5</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+2°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Attack Ang</span>
+          <div class="metric-band"><span class="band-edge">−4</span><span class="band-sep">·</span><span class="band-target strike">−5</span><span class="band-sep">·</span><span class="band-edge">−6°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Dyn Loft</span>
+          <div class="metric-band"><span class="band-edge">21</span><span class="band-sep">·</span><span class="band-target strike">22</span><span class="band-sep">·</span><span class="band-edge">24°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Launch</span>
+          <div class="metric-band"><span class="band-edge">15</span><span class="band-sep">·</span><span class="band-target strike">16</span><span class="band-sep">·</span><span class="band-edge">17.5°</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 Iron -->
+    <div class="club-card">
+      <div class="club-id">
+        <div class="club-number">9</div>
+        <div class="club-suffix">Iron</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-label">Club Path</span>
+          <div class="metric-band"><span class="band-edge">+1</span><span class="band-sep">·</span><span class="band-target">+2</span><span class="band-sep">·</span><span class="band-edge">+3°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Face to Tgt</span>
+          <div class="metric-band"><span class="band-edge">0</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+1.5°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Start Dir</span>
+          <div class="metric-band"><span class="band-edge">+0.5</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+2°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Attack Ang</span>
+          <div class="metric-band"><span class="band-edge">−4.5</span><span class="band-sep">·</span><span class="band-target strike">−5.5</span><span class="band-sep">·</span><span class="band-edge">−6.5°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Dyn Loft</span>
+          <div class="metric-band"><span class="band-edge">24</span><span class="band-sep">·</span><span class="band-target strike">25</span><span class="band-sep">·</span><span class="band-edge">27°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Launch</span>
+          <div class="metric-band"><span class="band-edge">17</span><span class="band-sep">·</span><span class="band-target strike">18</span><span class="band-sep">·</span><span class="band-edge">20°</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PW -->
+    <div class="club-card pw">
+      <div class="club-id">
+        <div class="club-number">PW</div>
+        <div class="club-suffix">Wedge</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-label">Club Path</span>
+          <div class="metric-band"><span class="band-edge">+1</span><span class="band-sep">·</span><span class="band-target">+2</span><span class="band-sep">·</span><span class="band-edge">+3°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Face to Tgt</span>
+          <div class="metric-band"><span class="band-edge">0</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+1.5°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Start Dir</span>
+          <div class="metric-band"><span class="band-edge">+0.5</span><span class="band-sep">·</span><span class="band-target">+1</span><span class="band-sep">·</span><span class="band-edge">+2°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Attack Ang</span>
+          <div class="metric-band"><span class="band-edge">−5</span><span class="band-sep">·</span><span class="band-target strike">−6</span><span class="band-sep">·</span><span class="band-edge">−7°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Dyn Loft</span>
+          <div class="metric-band"><span class="band-edge">28</span><span class="band-sep">·</span><span class="band-target strike">30</span><span class="band-sep">·</span><span class="band-edge">32°</span></div>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Launch</span>
+          <div class="metric-band"><span class="band-edge">19</span><span class="band-sep">·</span><span class="band-target strike">20</span><span class="band-sep">·</span><span class="band-edge">22°</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="legend-items">
+      <div class="legend-item">
+        <span class="legend-label">Path / Face</span>
+        <span class="legend-desc">In-to-out = +</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-label">Attack Angle</span>
+        <span class="legend-desc">Descending = −</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-label">All values</span>
+        <span class="legend-desc">Degrees (°)</span>
+      </div>
+    </div>
+    <div class="card-tag">v4 · 2025</div>
+  </div>
+
+</div>
+</body>
+</html>
